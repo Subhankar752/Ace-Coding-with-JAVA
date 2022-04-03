@@ -1,17 +1,29 @@
 class Solution {
-    public int maximumCandies(int[] A, long k) {
-        int left = 0, right = 10_000_000;
-        while (left < right) {
-            long sum = 0;
-            int mid = (left + right + 1) / 2;
-            for (int a : A) {
-                sum += a / mid;
+    public int maximumCandies(int[] a, long k) {
+        int ans = 0;
+        int low = 0;
+        int high = Integer.MAX_VALUE;
+        while(low < high){
+            int mid = low + (high - low)/2;
+            if(solve(mid , a , k) == true){
+                ans = mid;
+                low = mid + 1;
             }
-            if (k > sum)
-                right = mid - 1;
-            else
-                left = mid;
+            else{
+                high = mid;
+            }
         }
-        return left;
+        return ans;
+    }
+    public boolean solve(int allow , int[] candies , long k){
+        if(allow == 0)
+            return true;
+        long total = 0;
+        for(int candy : candies) {
+            total += candy / allow;
+            if(total >= k)
+                return true;
+        }
+        return false;
     }
 }
