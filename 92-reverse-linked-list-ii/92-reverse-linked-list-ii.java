@@ -10,42 +10,49 @@
  */
 class Solution {
     public ListNode reverseBetween(ListNode head, int left, int right) {
-        int i=1;
-        ListNode temp=head;
-        ListNode l=null;
-        ListNode r=null;
-        while(temp!=null){
-            if(i==left)
-                l=temp;
-            if(i == right)
-                r=temp;
-            i++;
-            temp=temp.next;
-        }
-        int k = right - left + 1;
-        ListNode lprev=null;
-        temp=head;
-        while(temp!=l){
-            lprev=temp;
-            temp=temp.next;
-        }
-        ListNode rnext=null;
-        if(r.next!=null)
-            rnext=r.next;
+        int i = 1;
+        ListNode temp = head;
+        ListNode l = null;
+        ListNode r = null;
         
-        ListNode cur=l;
+        while(temp != null){
+            if(i == left)
+                l = temp;
+            if(i == right)
+                r = temp;
+            i++;
+            temp = temp.next;
+        }
+        
+        int k = right - left + 1;
+        ListNode lprev = null;
+        temp = head;
+        
+        while(temp != l){
+            lprev = temp;
+            temp = temp.next;
+        }
+        
+        ListNode rnext = null;
+        
+        if(r.next != null)
+            rnext = r.next;
+        
+        ListNode cur = l;
         ListNode head1 = l;
         ListNode prev = null;
-        ListNode next=null;
-        while(cur!=null && k-->0){
-            next= cur.next;
-            cur.next=prev;
-            prev=cur;
-            cur=next;
+        ListNode next = null;
+        
+        while(cur != null && k-- > 0){
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
         }
+        
         if(lprev != null){
             lprev.next = prev;
-            l.next=rnext;
+            l.next = rnext;
             return head;
         }
         else{
