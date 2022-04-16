@@ -15,17 +15,25 @@
  */
 class Solution {
     ArrayList<Integer> list = new ArrayList<>();
+    int sum = 0;
     public TreeNode convertBST(TreeNode root) {
-        inorder(root);
-        HashMap<Integer , Integer> map = new HashMap<>();
-        int sum = 0;
-        int n = list.size();
-        for(int i = n - 1 ; i >=  0 ; i--){
-            sum += list.get(i);
-            map.put(list.get(i) , sum);
-        }
-        solve(root , map);
+        if(root == null)
+            return null;
+        convertBST(root.right);
+        root.val += sum;
+        sum = root.val;
+        convertBST(root.left);
         return root;
+        // inorder(root);
+        // HashMap<Integer , Integer> map = new HashMap<>();
+        // int sum = 0;
+        // int n = list.size();
+        // for(int i = n - 1 ; i >=  0 ; i--){
+        //     sum += list.get(i);
+        //     map.put(list.get(i) , sum);
+        // }
+        // solve(root , map);
+        // return root;
     }
     
     public void solve(TreeNode root , HashMap<Integer , Integer> map){
