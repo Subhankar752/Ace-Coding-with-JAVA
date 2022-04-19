@@ -46,7 +46,7 @@ class Solution {
         traverse(root.right);
     }
     
-    private void helper(TreeNode root, List<Integer> list) {
+    public void helper(TreeNode root, List<Integer> list) {
         if(root == null) {
             return;
         }
@@ -54,13 +54,4 @@ class Solution {
         list.add(root.val);
         helper(root.right, list);
     }
-    
-    // private void recover(TreeNode root, List<Integer> list) {
-    //     if(root == null) {
-    //         return;
-    //     }
-    //     recover(root.left, list);
-    //     root.val = list.get(index++);
-    //     recover(root.right, list);
-    // }
 }
