@@ -3,9 +3,6 @@ class Solution {
         while(s.length() > k){
             String res = "";
             int n = s.length();
-            int val = n / k;
-            if(n % k != 0)
-                val++;
             int i = 0;
             while(i < n){
                 String temp = s.substring(i , Math.min(n , i + k));
