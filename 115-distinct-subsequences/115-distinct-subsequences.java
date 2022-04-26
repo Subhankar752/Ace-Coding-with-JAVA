@@ -3,7 +3,7 @@ class Solution {
     public int numDistinct(String s, String t) {
         int n = s.length();
         int m = t.length();
-        dp = new int[n + 1][m + 1];
+        dp = new int[n][m];
         for(int i = 0 ; i < n ; i++){
             for(int j = 0 ; j < m ; j++){
                 dp[i][j] = -1;
