@@ -14,27 +14,35 @@
  * }
  */
 class Solution {
+    class Pair{
+        int a;
+        int b;
+        Pair(int a , int b){
+            this.a = a;
+            this.b = b;
+        }
+    }
     int res = 0;
     public int averageOfSubtree(TreeNode root) {
         dfs(root);
         return res;
     }
     
-    private int[] dfs(TreeNode node) {
+    private Pair dfs(TreeNode node) {
         if(node == null) {
-            return new int[] {0,0};
+            return new Pair(0 , 0);
         }
         
-        int[] left = dfs(node.left);
-        int[] right = dfs(node.right);
+        Pair left = dfs(node.left);
+        Pair right = dfs(node.right);
         
-        int currSum = left[0] + right[0] + node.val;
-        int currCount = left[1] + right[1] + 1;
+        int currSum = left.b + right.b + node.val;
+        int currCount = left.a + right.a + 1;
         
         if(currSum / currCount == node.val) {
             res++;
         }
             
-        return new int[] {currSum, currCount};
+        return new Pair(currCount , currSum);
     }
 }
