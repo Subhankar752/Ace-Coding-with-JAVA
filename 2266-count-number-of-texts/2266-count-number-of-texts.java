@@ -1,38 +1,34 @@
 class Solution {
+   
+    int[] dp;
+    int mod = (int)Math.pow(10 , 9) + 7;
+    
     public int countTexts(String pressedKeys) {
-        int[] memo=new int[pressedKeys.length()];
-        
-        return dfs(pressedKeys,memo,0);
+        int n = pressedKeys.length();
+        dp = new int[n];
+        Arrays.fill(dp , -1);
+        return solve(pressedKeys , 0);
     }
     
-    public int dfs(String pk,int[] memo,int index){
-        if(index==pk.length())  //if end of string is reached that is one permutation
+    public int solve(String st , int idx){
+        if(idx == st.length())
             return 1;
-        
-        if(memo[index]!=0)      //if countof permutations for that index is already calculated
-            return memo[index];
-        
-        int count=0;
-        for(int i=0;i<4;i++){   //max we need to go four index forward
-            //for only button 7 and 9 we have 4 charcters
-            if(pk.charAt(index)!='7' && pk.charAt(index)!='9' && i==3)  
+        if(dp[idx] != -1)
+            return dp[idx];
+        int count = 0;
+        for(int i = 0 ; i < 4 ; i++){
+            if(i == 3 && st.charAt(idx) != '7' && st.charAt(idx) != '9')
                 break;
-            
-            if(index+i>=pk.length())    //if end index goes out of bounds
+            if(idx + i >= st.length())
                 break;
-              
-            if(i!=0){  
-                //if adjacent characters are not same
-                if(pk.charAt(index+i)!=pk.charAt(index+i-1))    
+            if(i != 0){
+                if(st.charAt(idx + i) != st.charAt(idx + i - 1))
                     break;
             }
-            
-            count+=dfs(pk,memo,index+i+1);  //recursive call for remaining string
-            count%=1000000007;
-                
+            count += solve(st , idx + i + 1);
+            count = count % mod;
         }
-        
-        memo[index]=count;  //store the calculated value for this index
+        dp[idx] = count;
         return count;
     }
 }
