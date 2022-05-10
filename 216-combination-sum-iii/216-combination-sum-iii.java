@@ -11,6 +11,8 @@ private void combination(List<List<Integer>> ans, List<Integer> comb, int k,  in
 		ans.add(li);
 		return;
 	}
+    if(comb.size() >= k || sum >= n)
+        return;
 	for (int i = start; i <= 9; i++) {
 		comb.add(i);
         sum += i;
