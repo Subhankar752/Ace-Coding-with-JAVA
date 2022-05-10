@@ -1,5 +1,5 @@
 # Subarray with given sum
-## Easy 
+##  Easy 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given an unsorted array <strong>A </strong>of size <strong>N</strong> that contains only&nbsp;non-negative integers, find a continuous sub-array which adds to a given number <strong>S</strong>.</span></p>
 
