@@ -8,12 +8,16 @@ class Solution {
 private void combination(List<List<Integer>> ans, List<Integer> comb, int k,  int start, int n , int sum) {
 	if (comb.size() == k && n == sum) {
 		List<Integer> li = new ArrayList<Integer>(comb);
+        Collections.sort(li);
+        if(!ans.contains(li))
 		ans.add(li);
 		return;
 	}
     if(comb.size() >= k || sum >= n)
         return;
-	for (int i = start; i <= 9; i++) {
+	for (int i = 1; i <= 9; i++) {
+        if(comb.contains(i))
+            continue;
 		comb.add(i);
         sum += i;
 		combination(ans, comb, k, i+1, n , sum);
