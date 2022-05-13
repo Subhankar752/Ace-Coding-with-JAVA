@@ -32,14 +32,16 @@ class Solution {
             int qSize = queue.size();
             Node prev = null, curr = null;
             for(int i = 0 ; i < qSize ; i++){
-                prev = curr;
+                
                 curr = queue.poll();
-                if(prev != null)
-                    prev.next = curr;
+                
                 if(curr.left != null)
                     queue.add(curr.left);
                 if(curr.right != null)
                     queue.add(curr.right);
+                if(prev != null)
+                    prev.next = curr;
+                prev = curr;
             }
         }
         return root;
