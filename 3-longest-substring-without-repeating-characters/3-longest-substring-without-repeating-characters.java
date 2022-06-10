@@ -1,7 +1,5 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        
-        
         int n=s.length();
         HashSet<Character> h=new HashSet<>();
         Queue<Character> q=new LinkedList<>();
