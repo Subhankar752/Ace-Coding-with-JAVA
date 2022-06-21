@@ -6,7 +6,7 @@ class Solution {
             if (d > 0)
                 pq.add(d);
             if (pq.size() > ladders)
-                bricks -= pq.poll();
+                bricks -= pq.remove();
             if (bricks < 0)
                 return i;
         }
