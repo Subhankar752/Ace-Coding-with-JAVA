@@ -10,96 +10,50 @@
  */
 class Solution {
     public ListNode reverseBetween(ListNode head, int left, int right) {
-        int i = 1;
+        ListNode l = head;
+        ListNode r = head;
+        
+        if(left == 1)
+            l = null;
+        
+        for(int i = 2 ; i < left ; i++){
+            l = l.next;
+        }
+        
+        for(int i = 0 ; i < right ; i++){
+            r = r.next;
+        }
+       // System.out.println(l + " " + r);
+        int len = right - left + 1;
+       
+        ListNode cur = head;
         ListNode temp = head;
-        ListNode l = null;
-        ListNode r = null;
         
-        while(temp != null){
-            if(i == left)
-                l = temp;
-            if(i == right)
-                r = temp;
-            i++;
-            temp = temp.next;
+        if(l != null)
+        {
+            cur = l.next;
+            temp = l.next;
         }
-        
-        int k = right - left + 1;
-        ListNode lprev = null;
-        temp = head;
-        
-        while(temp != l){
-            lprev = temp;
-            temp = temp.next;
-        }
-        
-        ListNode rnext = null;
-        
-        if(r.next != null)
-            rnext = r.next;
-        
-        ListNode cur = l;
-        ListNode head1 = l;
+       // System.out.println(cur.val + " " + temp.val);
         ListNode prev = null;
-        ListNode next = null;
         
-        while(cur != null && k-- > 0){
-            next = cur.next;
+        while(cur != null && len > 0){
+            len--;
+            ListNode next = cur.next;
             cur.next = prev;
             prev = cur;
             cur = next;
         }
         
-        if(lprev != null){
-            lprev.next = prev;
-            l.next = rnext;
+        if(l != null)
+            l.next = prev;
+        if(r != null)
+            temp.next = r;
+        
+        if(l != null)
             return head;
-        }
-        else{
-            l.next=rnext;
         
         return prev;
-        }
-        
-        
-        
-        
-//         if(left == right) return head;
-//         ListNode l = null, r = null;
-//         ListNode temp = head;
-//         int i = 1;  
-//         while(temp != null){
-//             if(i == left){
-//                 l = temp;
-//             }
-//             if(i == right){
-//                 r = temp;
-//             }
-//             temp = temp.next;
-//             i++;
-//         }
-//         temp = head;
-//         ListNode prev = null;
-//         while(temp != l){
-//             prev = temp;
-//             temp = temp.next;
-//         }
-//         if(prev != null){
-//             prev.next = r;
-//         }
-//         else{
-//             head = r;
-//         }
-//         ListNode next = temp.next;
-//         while(temp != r){
-//             prev = temp;
-//             temp = next;
-//             next = next.next;
-//             temp.next = prev;
-//         }
-//         l.next = next;
-        
-//         return head;
         
     }
 }
