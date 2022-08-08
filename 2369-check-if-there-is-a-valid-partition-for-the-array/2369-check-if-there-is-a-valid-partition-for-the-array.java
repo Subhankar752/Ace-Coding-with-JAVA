@@ -20,6 +20,6 @@ class Solution {
             return dp[i] = solve(nums , i + 3);
         }
         else
-            return false;
+            return dp[i] = false;
     }
 }
