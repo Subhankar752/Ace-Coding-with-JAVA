@@ -1,6 +1,7 @@
 class Solution {
     public String shiftingLetters(String s, int[][] shifts) {
-        int[] a = new int[(int)1e5];
+        int n = s.length();
+        int[] a = new int[n + 1];
         
         for(int[] i : shifts){
            
@@ -19,7 +20,7 @@ class Solution {
             
         }
         a[0] = a[0] % 26;
-        for(int i = 1 ; i < 1e5 ; i++){
+        for(int i = 1 ; i < n + 1 ; i++){
             a[i] += a[i - 1];
             a[i] = a[i] % 26;
         }
