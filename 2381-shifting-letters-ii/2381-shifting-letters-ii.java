@@ -1,33 +1,49 @@
 class Solution {
     public String shiftingLetters(String s, int[][] shifts) {
-        char arr[] = s.toCharArray();
-        int n = s.length();
-        int diff[] = new int[n + 1];
+        int[] a = new int[(int)1e5];
         
-        for(int shift[] : shifts){
-            int a = shift[0];
-            int b = shift[1];
-            int d = shift[2] == 1 ? 1 : -1;
-        
-            diff[a] += d;
-            diff[b + 1] -= d;
+        for(int[] i : shifts){
+           
+            int start = i[0];
+            int end = i[1];
+            int val = i[2];
+           
+            if(val == 1){
+                a[start] += 1;
+                a[end + 1] -= 1;
+            }
+            else{
+                a[start] -= 1;
+                a[end + 1] += 1;
+            }
+            
+        }
+        a[0] = a[0] % 26;
+        for(int i = 1 ; i < 1e5 ; i++){
+            a[i] += a[i - 1];
+            a[i] = a[i] % 26;
         }
         
-        diff[0] %= 26;
+        String ans = "";
         
-        for(int i = 1 ; i < n + 1 ; i++){
-            diff[i] += diff[i - 1];
-            diff[i] %= 26;
+        for(int i = 0 ; i < s.length() ; i++){
+            char ch = s.charAt(i);
+           
+            int val = a[i];
+            int x = (int)ch;
+            x += val;
+            // System.out.println(x);
+           if(x < 97)
+                x += 26;
+            
+            if(x > 122)
+                x -= 26;
+            
+            char res = (char)x;
+            ans += res;
+            
         }
         
-        for(int i = 0 ; i < n ; i++){
-            int ind = arr[i] + diff[i];
-            if(ind < 97)
-                ind += 26;
-            if(ind > 122)
-                ind -= 26;
-            arr[i] = (char)ind;
-        }
-        return new String(arr);
+        return ans;
     }
 }
