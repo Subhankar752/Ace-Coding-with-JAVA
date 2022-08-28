@@ -12,12 +12,12 @@ class Solution {
             }
         }
         
-        String ans = "";
+        StringBuilder ans = new StringBuilder();
         
         while(!st.isEmpty()){
-            ans = st.pop() + ans;
+            ans.append(st.pop());
         }
         
-        return ans;
+        return new String(ans.reverse());
     }
 }
