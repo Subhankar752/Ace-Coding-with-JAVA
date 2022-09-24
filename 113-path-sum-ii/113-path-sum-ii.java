@@ -41,10 +41,10 @@ class Solution {
         if(root == null)
             return;
         if(root.left == null && root.right == null){
-            if(cur + root.val == sum){
-            asf = asf + Integer.toString(root.val);
-            res.add(asf);}
-            return;
+            if(cur + root.val == sum)
+            {asf = asf + Integer.toString(root.val);
+            res.add(asf);
+            return;}
         }
         solve(root.left , sum , cur + root.val , asf + Integer.toString(root.val)  + "*");
         solve(root.right, sum , cur + root.val , asf + Integer.toString(root.val) + "*");
