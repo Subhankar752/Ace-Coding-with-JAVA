@@ -9,12 +9,7 @@ class Solution {
                 int min = Math.min(neededTime[i] , neededTime[i + 1]);
                 ans += min;
         
-                if(neededTime[i] == min)
-                {
-                    //neededTime[i] = neededTime[i + 1];
-                }
-                else
-                {
+                if(neededTime[i] != min){
                     neededTime[i + 1] = neededTime[i];
                 }
             }
