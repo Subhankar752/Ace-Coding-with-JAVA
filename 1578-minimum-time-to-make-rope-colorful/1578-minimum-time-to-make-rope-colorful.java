@@ -11,7 +11,7 @@ class Solution {
         
                 if(neededTime[i] == min)
                 {
-                    neededTime[i] = neededTime[i + 1];
+                    //neededTime[i] = neededTime[i + 1];
                 }
                 else
                 {
