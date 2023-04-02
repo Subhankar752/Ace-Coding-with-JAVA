@@ -1,33 +1,57 @@
+
 class Solution {
     public int findShortestCycle(int n, int[][] edges) {
-        List<List<Integer>> G = new ArrayList<>();
-        for (int i = 0; i < n; ++i) {
-            G.add(new ArrayList<>());
-        }
-        for (int[] e : edges) {
-            G.get(e[0]).add(e[1]);
-            G.get(e[1]).add(e[0]);
-        }
-        int inf = 10000, res = inf;
-        Function<Integer, Integer> root = i -> {
-            List<Integer> dis = new ArrayList<>(Collections.nCopies(n, inf));
-            dis.set(i, 0);
-            Queue<Integer> bfs = new LinkedList<>(Arrays.asList(i));
-            while (!bfs.isEmpty()) {
-                i = bfs.poll();
-                for (int j : G.get(i)) {
-                    if (dis.get(j) == inf) {
-                        dis.set(j, 1 + dis.get(i));
-                        bfs.offer(j);
-                    } else if (dis.get(i) <= dis.get(j)) {
-                        return dis.get(i) + dis.get(j) + 1;
+        List<List<Integer>> graph = getGraph(edges , n);
+        int shortestCycle = Integer.MAX_VALUE;
+
+        for(int i=0; i<n; i++){
+
+            Queue<Integer> q = new LinkedList<>();
+            int[] distance = new int[n];
+            int[] parent = new int[n];
+            Arrays.fill(distance , Integer.MAX_VALUE);
+            Arrays.fill(parent , -1 );
+
+            q.add(i);
+            distance[i] = 0;
+
+            while(!q.isEmpty()){
+                int node = q.poll();
+
+                for(int edge : graph.get(node)){
+
+                    if(distance[edge] == Integer.MAX_VALUE){
+
+                        parent[edge] = node;
+                        distance[edge] = distance[node] + 1;
+
+                        q.add(edge);
+
+                    }else if(parent[node] != edge && parent[edge]!=node){
+
+                        int dist = distance[edge] + distance[node] + 1;
+                        shortestCycle = Math.min(shortestCycle , dist );
                     }
                 }
             }
-            return inf;
-        };
-        for (int i = 0; i < n; ++i)
-            res = Math.min(res, root.apply(i));
-        return res < inf ? res : -1;
+        }
+        if(shortestCycle == Integer.MAX_VALUE){
+            return -1;
+        }else{
+            return shortestCycle;
+        }
+    }
+    private List<List<Integer>> getGraph(int[][] edges , int n){
+        List<List<Integer>> graph = new ArrayList<>();
+        for(int i=0; i<n+1; i++){
+            graph.add(new ArrayList<>());
+        }
+        for(int[] i : edges){
+            int u = i[0];
+            int v = i[1];
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+        return graph;
     }
 }
