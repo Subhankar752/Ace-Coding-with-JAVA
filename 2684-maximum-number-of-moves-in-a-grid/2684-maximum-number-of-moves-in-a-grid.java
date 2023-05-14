@@ -1,35 +1,44 @@
-class Solution {
-  int[][] dp;
-  int[] dirs = new int[] {-1, 0, 1};
-  int m, n, max = 0;
-  
-  private int maxMoves(int[][] grid, int x, int y) {
-    if (y == n-1) return 0;
-    
-    if (dp[x][y] != -1) return dp[x][y];
-    
-    dp[x][y] = 0;
-    for (var dir : dirs) {
-      var x2 = x + dir;
-      if (x2 < 0 || x2 == m) continue;
-      
-      if (grid[x2][y+1] > grid[x][y])
-        dp[x][y] = Math.max(dp[x][y], 1 + maxMoves(grid, x2, y+1));
+class Pair{
+    int x;
+    int y;
+    int steps;
+    Pair(int x,int y,int steps){
+        this.x=x;
+        this.y=y;
+        this.steps=steps;
     }
-    return dp[x][y];
-  }
-  
-  public int maxMoves(int[][] grid) {
-    m = grid.length;
-    n = grid[0].length;
-    
-    dp = new int[m][n];
-    for (var row : dp)
-      Arrays.fill(row, -1);
-    
-    for (var i=0; i<m; i++)
-      max = Math.max(max, maxMoves(grid, i, 0));
-  
-    return max;
-  }
+}
+class Solution {
+    public int maxMoves(int[][] grid) {
+        int max=0;
+        for(int i=0;i<grid.length;i++){
+            int cnt=bfs(grid,i);
+            max=Math.max(max,cnt);
+        }
+        return max;
+    }
+    public int bfs(int[][] grid,int row){
+        Queue<Pair> qu=new LinkedList<>();
+        qu.add(new Pair(row,0,0));
+        boolean[][] vis=new boolean[grid.length][grid[0].length];
+        vis[row][0]=true;
+        int steps=0;
+        while(!qu.isEmpty()){
+            Pair p=qu.poll();
+            int x=p.x;
+            int y=p.y;
+            steps=p.steps;
+            int diri[]={-1,0,1};
+            int dirj[]={1,1,1};
+            for(int i=0;i<3;i++){
+                int curri=x+diri[i];
+                int currj=y+dirj[i];
+                if(curri>=0 && curri<grid.length && currj>=0 && currj<grid[0].length && !vis[curri][currj] && grid[curri][currj]>grid[x][y]){
+                    qu.add(new Pair(curri,currj,steps+1));
+                    vis[curri][currj]=true;
+                }
+            }
+        }
+        return steps;
+    }
 }
