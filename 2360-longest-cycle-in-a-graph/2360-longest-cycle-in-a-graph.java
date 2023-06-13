@@ -29,7 +29,6 @@ class Solution {
     }
 
     public void solve(int i, ArrayList<ArrayList<Integer>> adj, boolean[] vis, ArrayList<Integer> list) {
-        if (i == -1) return;
 
         if (vis[i]) {
             int idx = -1;
