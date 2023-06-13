@@ -1,25 +1,56 @@
 class Solution {
+    int ans = -1;
+
     public int longestCycle(int[] edges) {
-        int[] map = new int[edges.length];
-        int result = -1;
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
 
-        for (int i = 0 ; i < edges.length ; i++)
-            result = Math.max(result , helper(i , 1 , edges , map));
+        int n = edges.length;
 
-        return result;
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (edges[i] == -1) continue;
+            adj.get(i).add(edges[i]);
+        }
+
+        boolean[] vis = new boolean[n];
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            if (!vis[i]) {
+                list = new ArrayList<>();
+                solve(i, adj, vis, list);
+            }
+        }
+
+        return ans;
     }
 
-    int helper(int index , int total , int[] edges , int[] map) {
-        if (index == -1 || map[index] == -1)
-            return -1;
+    public void solve(int i, ArrayList<ArrayList<Integer>> adj, boolean[] vis, ArrayList<Integer> list) {
+        if (i == -1) return;
 
-        if (map[index] != 0)
-            return total - map[index];
+        if (vis[i]) {
+            int idx = -1;
 
-        map[index] = total;
-        int result = helper(edges[index], total + 1, edges, map);
-        map[index] = -1;
+            for (int j = 0; j < list.size(); j++) {
+                if (list.get(j) == i) {
+                    idx = j;
+                    break;
+                }
+            }
+            if (idx == -1) return;
 
-        return result;
+            ans = Math.max(ans, list.size() - idx);
+            return;
+        }
+
+        vis[i] = true;
+        list.add(i);
+
+        for (Integer ele : adj.get(i)) {
+            solve(ele, adj, vis, list);
+        }
     }
 }
