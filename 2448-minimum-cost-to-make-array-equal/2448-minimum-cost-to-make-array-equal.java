@@ -1,41 +1,37 @@
 class Solution {
-   public long minCost(int[] nums, int[] cost) {
+
+    public long minCost(int[] nums, int[] cost) {
         int n = nums.length;
-        
-        //******** This part is just for sorting nums in ascending order and shuffling cost respectively
-        int[][] pairs = new int[n][2];
-        for(int i=0;i<n;i++){
-            pairs[i][0] = nums[i];   pairs[i][1] = cost[i];
-        }
-        Arrays.sort(pairs, (o1,o2)->{
-            if(o1[0]!=o2[0]) return o1[0]-o2[0];
-            return o1[1]-o2[1];
-        });
-        for(int i=0;i<n;i++){
-            nums[i] = pairs[i][0];   cost[i] = pairs[i][1];
-        }
-        //******** Sorting done here
-      
-        long[] pre = new long[n];
-        long[] pos = new long[n];
-        
-        pre[0] = 0; long totalCost = cost[0];
-        for(int i=1;i<n;i++){
-            pre[i] = pre[i-1] + ((nums[i]-nums[i-1])*totalCost);
-            totalCost+=cost[i];
+
+        int arr[][] = new int[n][2];
+        long totalCost = 0L;
+
+        for (int i = 0; i < n; i++) {
+            arr[i][0] = nums[i];
+            arr[i][1] = cost[i];
+            totalCost += cost[i];
         }
         
-        pos[n-1] = 0; totalCost = cost[n-1];
-        for(int i=n-2;i>=0;i--){
-            pos[i] = pos[i+1] + ((nums[i+1]-nums[i])*totalCost);
-            totalCost+=cost[i];
+        Arrays.sort(arr, (a, b) -> a[0] - b[0]);
+
+        long currSum = 0L;
+        int j = -1;
+
+        for (int i = 0; i < arr.length; i++) {
+            currSum += arr[i][1];
+
+            if ((currSum * 1.0) / totalCost >= 0.5) {
+                j = i;
+                break;
+            }
         }
-        
-        long min = Long.MAX_VALUE;
-        for(int i=0;i<n;i++){
-            long curr = pre[i]+pos[i];
-            min = Math.min(min, curr);
+
+        long mini = 0L;
+
+        for (int a[] : arr) {
+            mini += (Math.abs(a[0] - arr[j][0]) * 1L * a[1]);
         }
-        return min;
+
+        return mini;
     }
 }
