@@ -11,8 +11,8 @@ class Solution {
             mostFreqLetter = Math.max(mostFreqLetter, freq[s.charAt(right) - 'A']);
 
             int lettersToChange = (right - left + 1) - mostFreqLetter;
-            
-            if (lettersToChange > k) {
+
+            if (lettersToChange > k && left < s.length()) {
                 freq[s.charAt(left) - 'A']--;
                 left++;
             }
