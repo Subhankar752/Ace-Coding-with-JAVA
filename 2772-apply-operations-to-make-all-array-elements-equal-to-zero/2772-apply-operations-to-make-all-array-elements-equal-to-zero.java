@@ -8,7 +8,7 @@ class Solution {
                 continue;
             
             int cur = nums[i];
-            System.out.println(cur);
+            // System.out.println(cur);
         
             for (int j = i ; j <= i + k - 1 ; j++) {
                 nums[j] -= cur;
