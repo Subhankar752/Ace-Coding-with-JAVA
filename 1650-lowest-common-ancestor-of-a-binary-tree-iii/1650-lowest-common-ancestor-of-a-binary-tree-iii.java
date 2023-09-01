@@ -10,14 +10,36 @@ class Node {
 
 class Solution {
     public Node lowestCommonAncestor(Node p, Node q) {
-        Node a = p;
-        Node b = q;
+        Stack<Node> s1 = new Stack<>();
+        Stack<Node> s2 = new Stack<>();
         
-        while(a != b) {
-            a = a == null ? q : a.parent;
-            b = b == null ? p : b.parent;
+        while(p != null) {
+            s1.push(p);
+            p = p.parent;
         }
         
-        return a;
+        while(q != null) {
+            s2.push(q);
+            q = q.parent;
+        }
+        Node res = null;
+        while(!s1.isEmpty() && !s2.isEmpty()) {
+            Node a = s1.pop();
+            Node b = s2.pop();
+            
+            if(a == b)
+                res = a;;
+        }
+        
+        return res;
+//         Node a = p;
+//         Node b = q;
+        
+//         while(a != b) {
+//             a = a == null ? q : a.parent;
+//             b = b == null ? p : b.parent;
+//         }
+        
+//         return a;
     }
 }
