@@ -7,7 +7,7 @@ class Solution {
 			arrivalTime = customer[0];
 			preparationTime = customer[1];
 			startTime = Math.max(startTime, arrivalTime);
-			totalWaitingTime += preparationTime + (startTime - arrivalTime);
+			totalWaitingTime += preparationTime + startTime - arrivalTime;
 			startTime += preparationTime;
 		}
 
