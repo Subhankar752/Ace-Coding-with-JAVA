@@ -1,42 +1,69 @@
 class Solution {
+    class Pair {
+        int a;
+        int b;
+        Pair (int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+    }
+    
     public int orangesRotting(int[][] grid) {
-        int[][] dirs = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
-        Queue<int[]> frontier = new LinkedList<>(); //contains rotten oranges
-        boolean[][] visited = new boolean[grid.length][grid[0].length];
-        int fresh = 0; //number of remaining fresh oranges
-        int min = 0; //minutes elapsed
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] == 1) {
-                    fresh++;
-                } else if (grid[i][j] == 2) {
-                    visited[i][j] = true; //mark rotten as visited
-                    frontier.offer(new int[]{i, j});
-                } else {
-                    visited[i][j] = true; //mark empty as visited
+        int n = grid.length;
+        int m = grid[0].length;
+        
+        Queue<Pair> q = new LinkedList<>();
+        
+        for(int i = 0 ; i < n ; i++) {
+            for(int j = 0 ; j < m ; j++) {
+                if(grid[i][j] == 2) {
+                    q.add(new Pair(i, j));
                 }
             }
         }
-        Queue<int[]> nextFrontier = new LinkedList<>();
-        while (!frontier.isEmpty()) {
-            int[] next = frontier.poll();
-            int y = next[0], x = next[1];
-            for (int[] dir : dirs) {
-                int next_y = y + dir[0];
-                int next_x = x + dir[1];
-                if (next_y >= 0 && next_x >= 0 && next_y < grid.length && next_x < grid[0].length && !visited[next_y][next_x]) {
-                    //has to be a fresh orange
-                    visited[next_y][next_x] = true;
-                    nextFrontier.offer(new int[]{next_y, next_x});
-                    fresh--;
+        
+        q.add(new Pair(-1, -1));
+        int ans = 0;
+        while(!q.isEmpty()) {
+            Pair p = q.remove();
+            if(p.a == -1 && p.b == -1) {
+                if(q.size() > 0) {
+                    ans++;
+                    q.add(new Pair(-1, -1));
                 }
             }
-            if (frontier.isEmpty() &&  !nextFrontier.isEmpty()) {
-                frontier = nextFrontier;
-                min++;
-                nextFrontier = new LinkedList<>();
+            else{
+                int x = p.a;
+                int y = p.b;
+                
+                int[] dx = {1, -1, 0, 0};
+                int[] dy = {0, 0, 1, -1};
+                
+                for(int k = 0 ; k < 4 ; k++) {
+                    if(isValid(x + dx[k], y + dy[k], grid)) {
+                        q.add(new Pair(x + dx[k], y + dy[k]));
+                    }
+                }
             }
         }
-        return fresh == 0 ? min : -1;
+        
+        for(int i = 0 ; i < n ; i++) {
+            for(int j = 0 ; j < m ; j++) {
+                if(grid[i][j] == 1)
+                    return -1;
+            }
+        }
+        
+        return ans;
+    }
+    public boolean isValid(int i, int j, int[][] grid) {
+        if(i < 0 || j < 0 || i > grid.length - 1 || j > grid[0].length - 1)
+            return false;
+        if(grid[i][j] == 0 || grid[i][j] == 2)
+            return false;
+        
+        grid[i][j] = 2;
+        
+        return true;
     }
 }
