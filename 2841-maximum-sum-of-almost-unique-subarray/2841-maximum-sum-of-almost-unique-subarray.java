@@ -26,7 +26,7 @@ class Solution {
                 int val = map.get(nums.get(i));
                 
                 if(val > 1) {
-                    map.put(nums.get(i), val - 1);    
+                    map.put(nums.get(i), map.get(nums.get(i)) - 1);    
                 }
                 else {
                     map.remove(nums.get(i));
