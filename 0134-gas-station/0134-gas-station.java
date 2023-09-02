@@ -1,35 +1,20 @@
 class Solution {
-   public int canCompleteCircuit(int[] gas, int[] cost) {
-        int n = gas.length;
-        int need = cost[n - 1];
-        int tank = gas[0], station = 0;
-       
-        for (int i = 1; i < n; i++) {
-            tank = tank - cost[i - 1];
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int currGain = 0, totalGain = 0, answer = 0;
+        
+        for (int i = 0; i < gas.length; ++i) {
+            // gain[i] = gas[i] - cost[i]
+            totalGain += gas[i] - cost[i];
+            currGain += gas[i] - cost[i];
             
-            if (tank < 0) {
-                need += Math.abs(tank);
-                tank = gas[i];
-                station = i;
-            } else {
-                tank += gas[i];
+            // If we meet a "valley", start over from the next station
+            // with 0 initial gas.
+            if (currGain < 0) {
+                answer = i + 1;
+                currGain = 0;
             }
-
         }
-
-        return tank >= need ? station : -1;
-    }
-    public int solve(int i , int[] p , int[] d , int n){
-        int j=i;
-        int sum=0;
-        while(true){
-            sum+=(p[i] - d[i]);
-            if(sum < 0)
-            return -1;
-            i++;
-            i=i%n;
-            if(i == j)
-            return j;
-        }
+        
+        return totalGain >= 0 ? answer : -1;
     }
 }
