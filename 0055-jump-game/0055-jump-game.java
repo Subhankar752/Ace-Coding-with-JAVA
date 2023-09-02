@@ -8,23 +8,6 @@ class Solution {
     }
     
     public boolean solve(int index, int[] nums, int[] dp) {
-//         if(i >= a.length - 1) {
-//             return true;
-//         }
-        
-//         if(dp[i])
-//             return dp[i];
-        
-//         for(int k = 1 ; k <= a[i] ; k++) {
-//             if(solve(i + k, a, dp)) {
-//                 dp[i] = true;
-//                 return true;
-//             }
-                
-//         }
-        
-//         dp[i] = false;
-//         return false;
         if (index >= nums.length-1) {
             return true;
         } 
