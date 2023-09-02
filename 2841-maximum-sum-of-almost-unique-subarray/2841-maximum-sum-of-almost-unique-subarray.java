@@ -7,6 +7,7 @@ class Solution {
         int unique = 0;
         int i = 0;
         long sum = 0;
+        
         for(int j = 0 ; j < n ; j++) {
             sum += nums.get(j);
             
@@ -21,7 +22,7 @@ class Solution {
                 unique++;
             }
             
-            if (j >= k) {
+            if (j - i + 1 > k) {
                 sum -= nums.get(i);
                 int val = map.get(nums.get(i));
                 
