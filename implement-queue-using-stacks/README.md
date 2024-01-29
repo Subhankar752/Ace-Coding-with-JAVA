@@ -1,3 +1,4 @@
+[Discussion Post (created on 29/0/2024 at 9:54)](https://leetcode.com/problems/implement-queue-using-stacks/discuss/4641692/JAVA-SOLUTION)  
 <h2>  Implement Queue using Stacks</h2><hr><div><p>Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (<code>push</code>, <code>peek</code>, <code>pop</code>, and <code>empty</code>).</p>
 
 <p>Implement the <code>MyQueue</code> class:</p>
