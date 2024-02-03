@@ -1,25 +1,27 @@
 class Solution {
+    int[] dp;
 
     public int maxSumAfterPartitioning(int[] arr, int k) {
-        Integer[] memo = new Integer[arr.length + 1];
-        return withMemoization(0, arr, k, memo);
+        dp = new int[1001];
+
+        return solve(0, arr, k);
     }
 
-    public int withMemoization(int i, int[] arr, int k, Integer[] memo) {
-        if (memo[i] != null) return memo[i];
-
-        int currMax = 0;
+    public int solve(int i, int[] a, int k) {
+        int max = 0;
         int ans = 0;
-        
-        for (int j = i; j < Math.min(arr.length, i + k); j++) {
-            currMax = Math.max(currMax, arr[j]);
-            int len = j - i + 1;
-            
-            int temp = (currMax * len) + withMemoization(j + 1, arr, k, memo);
+
+        if (dp[i] != 0) {
+            return dp[i];
+        }
+
+        for (int j = i; j < Math.min(a.length, i + k); j++) {
+            max = Math.max(max, a[j]);
+            int temp = (max * (j - i + 1)) + solve(j + 1, a, k);
+
             ans = Math.max(ans, temp);
         }
-        
-        memo[i] = ans;
-        return ans;
+
+        return dp[i] = ans;
     }
 }
