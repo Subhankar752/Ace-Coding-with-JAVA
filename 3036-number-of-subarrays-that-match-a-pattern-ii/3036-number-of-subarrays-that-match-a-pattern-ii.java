@@ -29,7 +29,6 @@ class Solution {
 
         String str = p.toString() + "#" + s.toString();
         int[] lps = kmp(str);
-        System.out.println(Arrays.toString(lps));
 
         int len = pattern.length;
         for (int i : lps) {
