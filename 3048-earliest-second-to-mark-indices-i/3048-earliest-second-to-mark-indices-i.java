@@ -12,15 +12,11 @@ class Solution {
             int mid = low + (high - low) / 2;
 
             if (check(nums, ch, mid)) {
-                ans = mid;
+                ans = mid + 1;
                 high = mid - 1;
             } else {
                 low = mid + 1;
             }
-        }
-
-        if (ans != -1) {
-            return ans + 1;
         }
 
         return ans;
