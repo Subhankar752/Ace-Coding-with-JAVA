@@ -23,8 +23,10 @@ class Solution {
                 }
             }
         }
+        
         boolean[][] vis = new boolean[rows][cols];
         dfs(si, ei, grid, rows, cols, vis, empty);
+        
         return ans;
     }
 
@@ -32,8 +34,6 @@ class Solution {
         if (grid[i][j] == 2) {
             if (empty == 0) {
                 ans++;
-            } else {
-                return;
             }
         }
 
