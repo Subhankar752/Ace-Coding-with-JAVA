@@ -1,23 +1,14 @@
 class Solution {
-    int[][][][] dp;
+    Integer[][][][] dp;
     int mod = (int) (1e9 + 7);
 
     public int numberOfStableArrays(int zero, int one, int limit) {
-        dp = new int[zero + 1][one + 1][2][limit + 1];
-        for (int i = 0; i < zero + 1; i++) {
-            for (int j = 0; j < one + 1; j++) {
-                for (int k = 0; k < 2; k++) {
-                    for (int l = 0; l < limit + 1; l++) {
-                        dp[i][j][k][l] = -1;
-                    }
-                }
-            }
-        }
+        dp = new Integer[zero + 1][one + 1][2][limit + 1];
         return (solve(zero - 1, one, limit, 0, 1) % mod + solve(zero, one - 1, limit, 1, 1) % mod) % mod;
     }
 
     public int solve(int zero, int one, int limit, int prev, int cons) {
-        if (dp[zero][one][prev][cons] != -1) {
+        if (dp[zero][one][prev][cons] != null) {
             return dp[zero][one][prev][cons];
         }
 
