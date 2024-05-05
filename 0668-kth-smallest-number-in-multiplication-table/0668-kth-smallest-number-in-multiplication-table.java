@@ -23,9 +23,9 @@ class Solution {
     public int solve(int mid, int m, int n) {
         int ans = 0;
 
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i <= m; i++) {
             int val = mid / i;
-            ans += Math.min(m, val);
+            ans += Math.min(n, val);
         }
 
         return ans;
