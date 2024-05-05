@@ -1,41 +1,28 @@
 class Solution {
-
-    public int minAnagramLength(String s) {
-        int ans = s.length();
-        Map<Character, Integer> map = new HashMap<>();
-        for (char c : s.toCharArray()) {
-            if (map.containsKey(c)) {
-                map.put(c, map.get(c) + 1);
-            } else {
-                map.put(c, 1);
-            }
+    private int calculateGCD(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
         }
-
-        int min = Integer.MAX_VALUE;
-        for (Map.Entry<Character, Integer> m : map.entrySet()) {
-            min = Math.min(min, m.getValue());
-        }
-
-        for (int i = 1; i <= min; i++) {
-            if (min % i == 0) {
-                ans = Math.min(ans, solve(map, i));
-            }
-        }
-
-        return ans;
+        return a;
     }
 
-    public int solve(Map<Character, Integer> map, int i) {
-        int ans = 0;
-        for (Map.Entry<Character, Integer> m : map.entrySet()) {
-            int val = m.getValue();
-            if (val % i != 0) {
-                return Integer.MAX_VALUE;
-            } else {
-                ans += val / i;
-            }
+    public int minAnagramLength(String s) {
+        // Create a frequency count of characters in the given string
+        Map<Character, Integer> charCount = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
         }
 
-        return ans;
+        // Find the greatest common divisor (GCD) of all character counts
+        int commonDivisor = charCount.get(s.charAt(0)); // Initialize with the first character's count
+        for (Map.Entry<Character, Integer> entry : charCount.entrySet()) {
+            commonDivisor = calculateGCD(commonDivisor, entry.getValue());
+        }
+
+        // Return the length of the string divided by the GCD
+        return s.length() / commonDivisor;
     }
 }
