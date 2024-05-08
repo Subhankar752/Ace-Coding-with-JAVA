@@ -107,11 +107,12 @@ class Solution {
         for (int i = 0; i < edges.length; i++) {
             int[] edge = edges[i];
             int minCostWithoutEdge = findMST(edges, n, edge, null);
+            
             if (minCostWithoutEdge > minCost) {
                 l1.add(i);
             } else {
                 int minCostWithEdge = findMST(edges, n, null, edge);
-                if (minCostWithEdge <= minCost) {
+                if (minCostWithEdge == minCost) {
                     l2.add(i);
                 }
             }
