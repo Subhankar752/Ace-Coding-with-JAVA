@@ -7,8 +7,7 @@ class Solution {
         dp = new int[n];
         Arrays.fill(dp, -1);
 
-        ans = Math.min(ans, solve(0, s, n));
-        return ans;
+        return solve(0, s, n);
     }
 
     public int solve(int i, String s, int n) {
