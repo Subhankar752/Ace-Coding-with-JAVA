@@ -1,27 +1,25 @@
 class Solution {
 
     public long maximumValueSum(int[] nums, int k, int[][] edges) {
-        int n = nums.length;
-        int count = 0;
-        int max = Integer.MAX_VALUE;
-        int min = Integer.MAX_VALUE;
         long ans = 0;
-        
-        for (int i = 0; i < n; i++) {
-            if ((nums[i] ^ k) > nums[i]) {
-                max = Math.min(max, (nums[i] ^ k) - nums[i]);
-                ans += (nums[i] ^ k);
+        int min = Integer.MAX_VALUE;
+        int count = 0;
+
+        for (int i : nums) {
+            if ((i ^ k) > i) {
+                ans += i ^ k;
                 count++;
+                min = Math.min(min, (i ^ k) - i);
             } else {
-                min = Math.min(min, nums[i] - (nums[i] ^ k));
-                ans += nums[i];
+                ans += i;
+                min = Math.min(min, i - (i ^ k));
             }
         }
-        
-        if (count % 2 != 0) {
-            ans -= Math.min(max, min);
+
+        if (count % 2 == 1) {
+            ans -= min;
         }
-        
+
         return ans;
     }
 }
