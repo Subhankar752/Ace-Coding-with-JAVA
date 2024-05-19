@@ -13,7 +13,7 @@ class Solution {
         if (isBackAllowed == 1) {
             ans += findRecur(pos - 1, jump, backsteps + 1, 0, k);
         }
-        ans += findRecur(pos + (1 << jump), jump + 1, backsteps, 1, k);
+        ans += findRecur(pos + ((int)Math.pow(2, jump)), jump + 1, backsteps, 1, k);
 
         dpMap.put(key, ans);
         return ans;
