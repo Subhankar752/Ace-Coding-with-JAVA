@@ -18,9 +18,7 @@ class Solution {
             adj.get(u).add(v);
             adj.get(v).add(u);
         }
-        System.out.println(adj);
-
-        // solve(0, -1, k);
+        
         solve(0, -1, k);
         return ans;
     }
