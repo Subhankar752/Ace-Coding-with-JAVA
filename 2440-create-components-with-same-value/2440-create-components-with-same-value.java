@@ -31,13 +31,6 @@ class Solution {
                 if (components == 0) {
                     ans = Math.max(ans, i - 1);
                 }
-
-                // components = sum / i;
-                // val = i;
-                // solve(0, -1, nums);
-                // if (components == 0) {
-                //     ans = Math.max(ans, sum / i - 1);
-                // }
             }
         }
 
