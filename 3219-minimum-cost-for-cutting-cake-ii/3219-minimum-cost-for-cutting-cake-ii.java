@@ -9,6 +9,7 @@ class Solution {
 
         int i = horizontalCut.length - 1;
         int j = verticalCut.length - 1;
+        
         while (i >= 0 && j >= 0) {
             if (horizontalCut[i] >= verticalCut[j]) {
                 total += (long) horizontalCut[i] * ver;
