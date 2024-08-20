@@ -19,7 +19,6 @@ class Solution {
         }
         for (int i = 0; i < n - 1; i++) {
             adj.get(i).add(i + 1);
-            // adj.get(i + 1).add(i);
         }
         int[] ans = new int[queries.length];
         int idx = 0;
@@ -27,36 +26,35 @@ class Solution {
             int u = i[0];
             int v = i[1];
             adj.get(u).add(v);
-            // adj.get(v).add(u);
-            boolean[] vis = new boolean[n];
-            int[] dis = new int[n];
-            solve(0, dis, vis);
-            ans[idx++] = dis[n - 1];
+            ans[idx++] = solve(n);
         }
 
         return ans;
     }
 
-    public void solve(int j, int[] dis, boolean[] vis) {
+    public int solve(int n) {
+        boolean[] vis = new boolean[n];
         Queue<Pair> q = new LinkedList<>();
         q.add(new Pair(0, 0));
         vis[0] = true;
-        Arrays.fill(dis, Integer.MAX_VALUE);
-        dis[0] = 0;
 
         while (!q.isEmpty()) {
             Pair cur = q.remove();
             int val = cur.val;
             int dist = cur.dis;
+            
+            if (val == n - 1) {
+                return dist;
+            }
             List<Integer> list = adj.get(val);
             for (int ele : list) {
                 if (!vis[ele]) {
                     vis[ele] = true;
                     q.add(new Pair(ele, dist + 1));
-                    dis[ele] = Math.min(dist + 1, dis[ele]);
                 }
             }
         }
-        
+
+        return -1;
     }
 }
