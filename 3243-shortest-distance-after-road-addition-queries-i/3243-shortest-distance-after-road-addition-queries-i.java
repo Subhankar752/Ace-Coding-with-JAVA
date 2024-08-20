@@ -26,13 +26,35 @@ class Solution {
             int u = i[0];
             int v = i[1];
             adj.get(u).add(v);
-            ans[idx++] = solve(n);
+            ans[idx++] = dijkstra(n);
         }
 
         return ans;
     }
 
-    public int solve(int n) {
+    public int dijkstra(int n) {
+        int[] dist = new int[n];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[0] = 0;
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> a.dis - b.dis);
+        pq.add(new Pair(0, 0));
+
+        while (!pq.isEmpty()) {
+            Pair p = pq.remove();
+            int val = p.val;
+            int dis = p.dis;
+            for (int ele : adj.get(val)) {
+                if (dis + 1 < dist[ele]) {
+                    dist[ele] = dis + 1;
+                    pq.add(new Pair(ele, dist[ele]));
+                }
+            }
+        }
+
+        return dist[n - 1];
+    }
+
+    public int bfs(int n) {
         boolean[] vis = new boolean[n];
         Queue<Pair> q = new LinkedList<>();
         q.add(new Pair(0, 0));
@@ -42,7 +64,7 @@ class Solution {
             Pair cur = q.remove();
             int val = cur.val;
             int dist = cur.dis;
-            
+
             if (val == n - 1) {
                 return dist;
             }
