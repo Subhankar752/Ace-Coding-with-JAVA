@@ -24,12 +24,12 @@ class Solution {
             ans = p.val;
 
             //next row
-            if (p.idx2 + 1 < cols) {
+            if (p.idx1 == 0 && p.idx2 + 1 < cols) {
                 pq.add(new Pair(p.idx1, p.idx2 + 1, matrix[p.idx1][p.idx2 + 1]));
             }
 
             //next column only if 1st
-            if (p.idx2 == 0 && p.idx1 + 1 < rows) {
+            if (p.idx1 + 1 < rows) {
                 pq.add(new Pair(p.idx1 + 1, p.idx2, matrix[p.idx1 + 1][p.idx2]));
             }
         }
