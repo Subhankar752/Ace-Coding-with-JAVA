@@ -1,4 +1,5 @@
 class Solution {
+    
     /*
             2   4   6
         +------------
@@ -36,11 +37,11 @@ class Solution {
             ans.add(list);
             
             //next column
-            if (p.idx2 == 0 && p.idx1 + 1 < n1) {
+            if (p.idx1 + 1 < n1) {
                 pq.add(new Pair(p.idx1 + 1, p.idx2, nums1[p.idx1 + 1] + nums2[p.idx2]));
             }
             //next row
-            if (p.idx2 + 1 < n2) {
+            if (p.idx1 == 0 && p.idx2 + 1 < n2) {
                 pq.add(new Pair(p.idx1, p.idx2 + 1, nums1[p.idx1] + nums2[p.idx2 + 1]));
             }
         }
