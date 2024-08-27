@@ -23,16 +23,11 @@ class Solution {
 
     public int solve(int[] a, int x) {
         int ans = 0;
-
-        for (int i = 0; i < a.length; i++) {
-            for (int j = i + 1; j < a.length; j++) {
-                int diff = a[j] - a[i];
-                if (diff <= x) {
-                    ans++;
-                } else {
-                    break;
-                }
-            }
+        int n = a.length;
+        
+        for (int i = 0, j = 0; i < n; i++) {
+            while (j < n && a[j] <= a[i] + x) j++;
+            ans += j - i - 1;
         }
 
         return ans;
