@@ -1,29 +1,45 @@
 class Solution {
 
     public long minNumberOfSeconds(int mountainHeight, int[] workerTimes) {
-        long left = 1, right = (long) 1e18;
+        long low = 1, high = (long) 1e18, result = high;
 
-        while (left < right) {
-            long mid = left + (right - left) / 2;
-            if (canFinish(mountainHeight, workerTimes, mid)) {
-                right = mid;
+        while (low <= high) {
+            long mid = (low + high) / 2;
+
+            if (canReduceMountain(mountainHeight, workerTimes, mid)) {
+                result = mid;
+                high = mid - 1;
             } else {
-                left = mid + 1;
+                low = mid + 1;
             }
         }
-        return left;
+
+        return result;
     }
 
-    private boolean canFinish(int mountainHeight, int[] workerTimes, long maxTime) {
-        long totalReducedHeight = 0;
+    private boolean canReduceMountain(int mountainHeight, int[] workerTimes, long maxTime) {
+        long totalReduction = 0;
 
         for (int time : workerTimes) {
-            long maxHeight = (long) (-1 + Math.sqrt(1 + 8 * maxTime / time)) / 2;
-            totalReducedHeight += maxHeight;
-            if (totalReducedHeight >= mountainHeight) {
+            long low = 1, high = mountainHeight;
+
+            while (low <= high) {
+                long mid = (low + high) / 2;
+                long cost = (mid * (mid + 1)) / 2 * time;
+
+                if (cost <= maxTime) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+            }
+
+            totalReduction += high;
+            if (totalReduction >= mountainHeight) {
                 return true;
             }
         }
-        return totalReducedHeight >= mountainHeight;
+
+        return totalReduction >= mountainHeight;
     }
 }
